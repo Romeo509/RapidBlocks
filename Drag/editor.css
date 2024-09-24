@@ -1,0 +1,78 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+    padding: 20px; /* Margin from edges */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; 
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    width: 80%; /* Width of the modal */
+    max-width: 800px; /* Maximum width */
+    height: calc(100% - 40px); /* Full height minus padding */
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+}
+
+h3 {
+    margin-bottom: 10px; /* Space below the title */
+}
+
+#componentName {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px; /* Padding inside */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ccc; /* Border for input */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 10px; /* Space below the input */
+    font-size: 16px; /* Font size */
+}
+
+.modal-body {
+    display: flex; /* Flex layout for HTML/CSS sections */
+    flex-grow: 1; /* Make it fill available space */
+    margin-top: 10px; /* Add some space above the sections */
+}
+
+.html-section, .css-section {
+    width: 50%; /* Divide equally */
+    padding: 10px; /* Space inside sections */
+}
+
+textarea {
+    width: 100%; /* Full width of section */
+    height: calc(100% - 40px); /* Adjust height */
+    resize: none; /* Prevent resizing */
+    border-radius: 5px; /* Rounded corners for textarea */
+    border: 1px solid #ccc; /* Border for textarea */
+    padding: 10px; /* Padding inside textarea */
+}
+
+/* Styling for the save button */
+#saveComponentBtn {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline-block for better styling */
+    font-size: 16px; /* Font size */
+    margin: 10px 0; /* Margin around the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+#saveComponentBtn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

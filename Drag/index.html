@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No-Code Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="editor.css"> <!-- Modal CSS -->
+    <link rel="stylesheet" href="context_menu.css"> <!-- Context menu CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="modal_submission.js" defer></script>
+    <script src="drag_drop.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="add-component" id="addComponentBtn">+</div>
+        <h2>Components</h2>
+        <div id="componentList"></div>
+    </div>
+
+    <div class="workspace">
+        <h2>Workspace</h2>
+        <div id="workspaceArea"></div>
+    </div>
+
+    <div class="modal" id="componentModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Add Component</h3>
+            <input type="text" id="componentName" placeholder="Enter component name..." />
+            <div class="modal-body">
+                <div class="html-section">
+                    <h4>HTML</h4>
+                    <textarea id="htmlInput" rows="10" placeholder="Enter HTML code here..."></textarea>
+                </div>
+                <div class="css-section">
+                    <h4>CSS</h4>
+                    <textarea id="cssInput" rows="10" placeholder="Enter CSS code here..."></textarea>
+                </div>
+            </div>
+            <button id="saveComponentBtn">Save Component</button>
+        </div>
+    </div>
+
+    <!-- Context menu for sidebar -->
+    <div id="sidebarContextMenu" class="context-menu" style="display: none;">
+        <ul>
+            <li id="deleteSidebarComponent">Delete</li>
+        </ul>
+    </div>
+
+    <script>
+        // Function to load components from JSON file
+        function loadComponents() {
+            $.getJSON('components.json', function(data) {
+                $('#componentList').empty(); // Clear existing items
+                for (const component in data) {
+                    $('#componentList').append(`<div class="component-item" draggable="true">${data[component].name}</div>`);
+                }
+            }).fail(function() {
+                console.log('Failed to load components. Please check the file path.');
+            });
+        }
+
+        $(document).ready(function() {
+            loadComponents(); // Load components on page load
+
+            $('#saveComponentBtn').on('click', function() {
+                const componentName = $('#componentName').val();
+                const htmlCode = $('#htmlInput').val();
+                const cssCode = $('#cssInput').val();
+
+                $.post('save_component.php', {
+                    componentName: componentName,
+                    htmlCode: htmlCode,
+                    cssCode: cssCode
+                }, function(response) {
+                    const res = JSON.parse(response);
+                    if (res.success) {
+                        alert('Component saved successfully!');
+                        loadComponents(); // Reload components to ensure the sidebar is updated
+                        $('#componentModal').hide(); // Close modal after saving
+                    } else {
+                        alert('Failed to save component: ' + res.message);
+                    }
+                }).fail(function() {
+                    alert('Error in submission.');
+                });
+            });
+
+            $('#addComponentBtn').on('click', function() {
+                $('#componentModal').show();
+            });
+
+            $('#closeModal').on('click', function() {
+                $('#componentModal').hide();
+            });
+
+            // Handle right-click for context menu in the sidebar
+            $('#componentList').on('contextmenu', '.component-item', function(event) {
+                event.preventDefault();
+                const componentName = $(this).text();
+                $('#sidebarContextMenu').data('componentName', componentName)
+                    .css({ top: event.pageY + 'px', left: event.pageX + 'px' })
+                    .show();
+            });
+
+            // Click event for delete option in sidebar context menu
+            $('#deleteSidebarComponent').on('click', function() {
+                const componentName = $('#sidebarContextMenu').data('componentName');
+                $.post('delete_component.php', { componentName: componentName }, function(response) {
+                    const res = JSON.parse(response);
+                    if (res.success) {
+                        alert('Component deleted successfully!');
+                        loadComponents(); // Reload components to update the sidebar
+                        $('#sidebarContextMenu').hide(); // Hide context menu
+                    } else {
+                        alert('Failed to delete component: ' + res.message);
+                    }
+                }).fail(function() {
+                    alert('Error in deletion.');
+                });
+            });
+
+            // Hide context menu on click elsewhere
+            $(document).on('click', function() {
+                $('#sidebarContextMenu').hide();
+            });
+        });
+    </script>
+</body>
+</html>

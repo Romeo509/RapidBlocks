@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.sidebar {
+    width: 250px;
+    background: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Allow scrolling if components exceed the height */
+}
+
+.add-component {
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.workspace {
+    flex-grow: 1;
+    padding: 20px;
+    background: #fff;
+    position: relative; /* Set relative positioning */
+    height: 100vh; /* Full height of the viewport */
+}
+
+#workspaceArea {
+    height: 100%; /* Full height of workspace */
+    margin-top: 10px;
+    position: relative; /* Set position for absolute children */
+}
+
+/* Style for component items */
+.component-item {
+    cursor: grab; /* Change cursor to grab */
+    margin-bottom: 10px; /* Add margin between items */
+}
+
+/* Additional styles for smoother transitions */
+.component-item {
+    transition: all 0.2s ease; /* Smooth transition for movements */
+}
+
+/* Optional: Add hover effect */
+.component-item:hover {
+    cursor: grabbing; /* Change cursor on hover */
+}
