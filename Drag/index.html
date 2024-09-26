@@ -10,6 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="modal_submission.js" defer></script>
     <script src="drag_drop.js" defer></script>
+    <script src="editor.js" defer></script>
+    <script src="positions.js" defer></script>
 </head>
 <body>
     <div class="sidebar">
@@ -20,7 +22,12 @@
 
     <div class="workspace">
         <h2>Workspace</h2>
+        <button id="saveWorkspaceBtn">Save Workspace</button>
+ <!-- Button to trigger saving -->
+
         <div id="workspaceArea"></div>
+  
+
     </div>
 
     <div class="modal" id="componentModal">
@@ -29,18 +36,25 @@
             <h3>Add Component</h3>
             <input type="text" id="componentName" placeholder="Enter component name..." />
             <div class="modal-body">
-                <div class="html-section">
-                    <h4>HTML</h4>
-                    <textarea id="htmlInput" rows="10" placeholder="Enter HTML code here..."></textarea>
+                <div class="editor-section">
+                    <div class="editor-tabs">
+                        <div class="tab active" id="htmlTab">HTML</div>
+                        <div class="tab" id="cssTab">CSS</div>
+                    </div>
+                    <div class="editor-container">
+                        <textarea id="htmlInput" rows="10" placeholder="Enter HTML code here..."></textarea>
+                        <textarea id="cssInput" rows="10" placeholder="Enter CSS code here..."></textarea>
+                    </div>
                 </div>
-                <div class="css-section">
-                    <h4>CSS</h4>
-                    <textarea id="cssInput" rows="10" placeholder="Enter CSS code here..."></textarea>
+                <div class="preview-section">
+                    <!-- Live preview will be rendered here -->
                 </div>
             </div>
+            
             <button id="saveComponentBtn">Save Component</button>
         </div>
     </div>
+    
 
     <!-- Context menu for sidebar -->
     <div id="sidebarContextMenu" class="context-menu" style="display: none;">
