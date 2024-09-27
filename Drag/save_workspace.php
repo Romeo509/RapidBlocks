@@ -1,4 +1,8 @@
 <?php
+// This script handles a POST request to save the HTML content of a workspace as an 'index.html' file in a 'project' directory. 
+// It creates the directory if it doesn't exist and wraps the workspace content in a basic HTML template with a link to a stylesheet. 
+// After writing the content, it returns a success or error message based on the outcome of the file operation.
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the workspace HTML content sent via POST
     $workspaceHtml = $_POST['workspaceHtml'];

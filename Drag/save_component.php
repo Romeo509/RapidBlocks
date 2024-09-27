@@ -1,4 +1,8 @@
 <?php
+// This script handles a POST request to save a new component's name, HTML, and CSS code to a JSON file. 
+// It checks if the request method is POST, loads existing components from 'components.json', and saves the new component data. 
+// If successful, it returns a success message; otherwise, it returns an error message for invalid requests.
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $componentName = $_POST['componentName'];
     $htmlCode = $_POST['htmlCode'];

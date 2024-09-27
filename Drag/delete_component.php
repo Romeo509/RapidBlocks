@@ -1,4 +1,8 @@
 <?php
+// This script processes a POST request to delete a specified component from the 'components.json' file. 
+// It checks if the component exists, removes it if found, and then saves the updated component list back to the JSON file. 
+// The script returns a success message if the component was deleted or an error message if it wasn't found or the request method was invalid.
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $componentName = $_POST['componentName'];
 
