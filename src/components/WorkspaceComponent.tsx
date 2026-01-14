@@ -104,16 +104,7 @@ export default function WorkspaceComponent({
       setIsDragging(false);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
-      // Re-enable pointer events on all iframes
-      document.querySelectorAll('iframe').forEach(iframe => {
-        iframe.style.pointerEvents = '';
-      });
     };
-
-    // Disable pointer events on all iframes to prevent them from capturing mouse events
-    document.querySelectorAll('iframe').forEach(iframe => {
-      iframe.style.pointerEvents = 'none';
-    });
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
@@ -176,16 +167,7 @@ export default function WorkspaceComponent({
       setShowSizeIndicator(false);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
-      // Re-enable pointer events on all iframes
-      document.querySelectorAll('iframe').forEach(iframe => {
-        iframe.style.pointerEvents = '';
-      });
     };
-
-    // Disable pointer events on all iframes during resize
-    document.querySelectorAll('iframe').forEach(iframe => {
-      iframe.style.pointerEvents = 'none';
-    });
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
@@ -211,7 +193,7 @@ export default function WorkspaceComponent({
   return (
     <>
       <div
-        className={`workspace-component absolute bg-white rounded overflow-hidden ${
+        className={`workspace-component absolute bg-white rounded-xl overflow-hidden ${
           isDragging ? 'dragging cursor-grabbing' : 'cursor-grab'
         } ${isSelected ? 'selected' : ''}`}
         style={{
@@ -224,10 +206,20 @@ export default function WorkspaceComponent({
         onMouseDown={handleMouseDown}
         onContextMenu={handleContextMenu}
       >
+        {/* Drag overlay - captures mouse events during drag/resize */}
+        <div 
+          className="absolute inset-0 z-[5]"
+          style={{ 
+            cursor: isDragging ? 'grabbing' : 'grab',
+            background: 'transparent'
+          }}
+        />
+
         <iframe
           ref={iframeRef}
-          className="component-preview-frame"
+          className="component-preview-frame rounded-xl"
           title={block.name}
+          style={{ pointerEvents: 'none' }}
         />
 
         {/* Resize handles */}
@@ -241,42 +233,51 @@ export default function WorkspaceComponent({
 
         {/* Size indicator */}
         {showSizeIndicator && (
-          <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+          <div className="absolute -top-9 left-1/2 -translate-x-1/2 bg-[#1d1d1f] text-white text-[11px] font-medium px-2.5 py-1 rounded-md whitespace-nowrap z-20 shadow-lg">
             {Math.round(block.width)} × {Math.round(block.height)}
           </div>
         )}
       </div>
 
-      {/* Context menu */}
+      {/* Global drag overlay to capture mouse during drag/resize */}
+      {(isDragging || isResizing) && (
+        <div className="fixed inset-0 z-[9998] cursor-grabbing" />
+      )}
+
+      {/* Context menu - Apple style */}
       {showContextMenu && (
         <div
-          className="fixed bg-white rounded-lg shadow-xl border border-gray-200 py-1 z-[9999] min-w-[160px]"
+          className="fixed glass rounded-xl shadow-2xl border border-black/10 py-1.5 z-[9999] min-w-[180px] overflow-hidden"
           style={{ left: contextMenuPos.x, top: contextMenuPos.y }}
         >
           <button
-            className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+            className="w-full px-3 py-2 text-left text-[13px] text-[#1d1d1f] hover:bg-black/[0.06] flex items-center gap-3 transition-colors"
             onClick={(e) => { e.stopPropagation(); onDuplicate(); setShowContextMenu(false); }}
           >
-            <span>📋</span> Duplicate
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Duplicate
           </button>
           <button
-            className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+            className="w-full px-3 py-2 text-left text-[13px] text-[#1d1d1f] hover:bg-black/[0.06] flex items-center gap-3 transition-colors"
             onClick={(e) => { e.stopPropagation(); onBringToFront(); setShowContextMenu(false); }}
           >
-            <span>⬆️</span> Bring to Front
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="8" width="13" height="13" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"/></svg>
+            Bring to Front
           </button>
           <button
-            className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-2"
+            className="w-full px-3 py-2 text-left text-[13px] text-[#1d1d1f] hover:bg-black/[0.06] flex items-center gap-3 transition-colors"
             onClick={(e) => { e.stopPropagation(); onSendToBack(); setShowContextMenu(false); }}
           >
-            <span>⬇️</span> Send to Back
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="8" y="3" width="13" height="13" rx="2"/><path d="M16 16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2"/></svg>
+            Send to Back
           </button>
-          <div className="border-t border-gray-200 my-1" />
+          <div className="border-t border-black/[0.08] my-1.5 mx-2" />
           <button
-            className="w-full px-4 py-2 text-left text-sm hover:bg-red-50 text-red-600 flex items-center gap-2"
+            className="w-full px-3 py-2 text-left text-[13px] text-[#ff3b30] hover:bg-[#ff3b30]/10 flex items-center gap-3 transition-colors"
             onClick={(e) => { e.stopPropagation(); onDelete(); setShowContextMenu(false); }}
           >
-            <span>🗑️</span> Delete
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"/></svg>
+            Delete
           </button>
         </div>
       )}

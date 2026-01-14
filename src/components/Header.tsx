@@ -10,7 +10,6 @@ interface HeaderProps {
 
 export default function Header({ blocks, onClear }: HeaderProps) {
   const exportHTML = () => {
-    // Generate full HTML document with all components
     const styles = blocks.map(block => block.css).join('\n');
     const html = blocks.map(block => {
       return `<div style="position: absolute; left: ${block.x}px; top: ${block.y}px; width: ${block.width}px; height: ${block.height}px;">
@@ -23,10 +22,11 @@ export default function Header({ blocks, onClear }: HeaderProps) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website - Built with RapidBlocks</title>
+  <title>My Website — Built with RapidBlocks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; position: relative; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; min-height: 100vh; position: relative; }
     ${styles}
   </style>
 </head>
@@ -35,7 +35,6 @@ export default function Header({ blocks, onClear }: HeaderProps) {
 </body>
 </html>`;
 
-    // Download the file
     const blob = new Blob([fullHTML], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -48,36 +47,43 @@ export default function Header({ blocks, onClear }: HeaderProps) {
   };
 
   return (
-    <header className="h-[60px] bg-white border-b border-gray-200 flex items-center justify-between px-6 flex-shrink-0">
+    <header className="h-[56px] glass border-b border-black/5 flex items-center justify-between px-5 flex-shrink-0">
       <div className="flex items-center gap-3">
-        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-          <span className="text-white font-bold text-sm">R</span>
+        <div className="w-8 h-8 bg-gradient-to-br from-[#0071e3] to-[#40c8e0] rounded-[10px] flex items-center justify-center shadow-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
         </div>
-        <h1 className="text-xl font-bold text-gray-800">RapidBlocks</h1>
-        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Beta</span>
+        <div className="flex items-baseline gap-2">
+          <h1 className="text-[15px] font-semibold text-[#1d1d1f] tracking-tight">RapidBlocks</h1>
+          <span className="text-[10px] font-medium text-[#86868b] uppercase tracking-wider">Beta</span>
+        </div>
       </div>
 
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-gray-500">
-          {blocks.length} component{blocks.length !== 1 ? 's' : ''}
+      <div className="flex items-center gap-2">
+        <span className="text-[13px] text-[#86868b] mr-2">
+          {blocks.length} {blocks.length === 1 ? 'element' : 'elements'}
         </span>
         
         <button
           onClick={onClear}
           disabled={blocks.length === 0}
-          className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="apple-btn apple-btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          <Trash2 size={16} />
-          Clear
+          <Trash2 size={14} strokeWidth={2} />
+          <span>Clear</span>
         </button>
 
         <button
           onClick={exportHTML}
           disabled={blocks.length === 0}
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="apple-btn apple-btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          <Download size={16} />
-          Export HTML
+          <Download size={14} strokeWidth={2} />
+          <span>Export</span>
         </button>
       </div>
     </header>

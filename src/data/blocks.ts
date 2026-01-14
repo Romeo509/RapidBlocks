@@ -6,7 +6,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'btn-primary',
     name: 'Primary Button',
     category: 'Buttons',
-    icon: '🔘',
     defaultWidth: 150,
     defaultHeight: 50,
     html: `<button class="btn-primary">Click Me</button>`,
@@ -34,7 +33,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'btn-outline',
     name: 'Outline Button',
     category: 'Buttons',
-    icon: '⭕',
     defaultWidth: 150,
     defaultHeight: 50,
     html: `<button class="btn-outline">Learn More</button>`,
@@ -62,7 +60,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'btn-icon',
     name: 'Icon Button',
     category: 'Buttons',
-    icon: '➡️',
     defaultWidth: 180,
     defaultHeight: 50,
     html: `<button class="btn-icon">Get Started <span>→</span></button>`,
@@ -101,7 +98,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'card-profile',
     name: 'Profile Card',
     category: 'Cards',
-    icon: '👤',
     defaultWidth: 320,
     defaultHeight: 400,
     html: `
@@ -191,7 +187,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'card-product',
     name: 'Product Card',
     category: 'Cards',
-    icon: '🛍️',
     defaultWidth: 300,
     defaultHeight: 420,
     html: `
@@ -301,7 +296,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'card-testimonial',
     name: 'Testimonial Card',
     category: 'Cards',
-    icon: '💬',
     defaultWidth: 350,
     defaultHeight: 250,
     html: `
@@ -375,7 +369,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'nav-simple',
     name: 'Simple Navbar',
     category: 'Navigation',
-    icon: '📱',
     defaultWidth: 800,
     defaultHeight: 70,
     html: `
@@ -441,7 +434,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'hero-centered',
     name: 'Centered Hero',
     category: 'Hero',
-    icon: '🎯',
     defaultWidth: 800,
     defaultHeight: 500,
     html: `
@@ -520,7 +512,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'form-contact',
     name: 'Contact Form',
     category: 'Forms',
-    icon: '📝',
     defaultWidth: 400,
     defaultHeight: 450,
     html: `
@@ -603,7 +594,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'form-login',
     name: 'Login Form',
     category: 'Forms',
-    icon: '🔐',
     defaultWidth: 380,
     defaultHeight: 420,
     html: `
@@ -723,7 +713,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'feature-grid',
     name: 'Feature Grid',
     category: 'Features',
-    icon: '⭐',
     defaultWidth: 700,
     defaultHeight: 350,
     html: `
@@ -790,7 +779,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'pricing-card',
     name: 'Pricing Card',
     category: 'Pricing',
-    icon: '💳',
     defaultWidth: 300,
     defaultHeight: 450,
     html: `
@@ -889,7 +877,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'footer-simple',
     name: 'Simple Footer',
     category: 'Footer',
-    icon: '🦶',
     defaultWidth: 800,
     defaultHeight: 200,
     html: `
@@ -984,7 +971,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'text-heading',
     name: 'Heading',
     category: 'Text',
-    icon: '📰',
     defaultWidth: 400,
     defaultHeight: 80,
     html: `<h1 class="heading">Your Amazing Headline</h1>`,
@@ -1006,7 +992,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'text-paragraph',
     name: 'Paragraph',
     category: 'Text',
-    icon: '📄',
     defaultWidth: 500,
     defaultHeight: 100,
     html: `<p class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>`,
@@ -1027,7 +1012,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'image-rounded',
     name: 'Rounded Image',
     category: 'Media',
-    icon: '🖼️',
     defaultWidth: 300,
     defaultHeight: 200,
     html: `<img class="rounded-image" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop" alt="Image" />`,
@@ -1048,7 +1032,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'divider-simple',
     name: 'Simple Divider',
     category: 'Layout',
-    icon: '➖',
     defaultWidth: 400,
     defaultHeight: 30,
     html: `<hr class="divider" />`,
@@ -1068,7 +1051,6 @@ export const blockTemplates: BlockTemplate[] = [
     id: 'badge-status',
     name: 'Status Badge',
     category: 'Elements',
-    icon: '🏷️',
     defaultWidth: 100,
     defaultHeight: 35,
     html: `<span class="badge">Active</span>`,

@@ -48,7 +48,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100 overflow-hidden">
+    <div className="h-screen flex flex-col bg-[#f5f5f7] overflow-hidden">
       <Header
         blocks={workspaceBlocks}
         onClear={handleClearWorkspace}

@@ -2,12 +2,10 @@ export interface BlockTemplate {
   id: string;
   name: string;
   category: string;
-  icon: string;
   html: string;
   css: string;
   defaultWidth: number;
   defaultHeight: number;
-  thumbnail?: string;
 }
 
 export interface BlockInstance {

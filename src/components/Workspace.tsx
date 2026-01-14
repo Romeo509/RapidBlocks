@@ -130,24 +130,40 @@ export default function Workspace({
   }, [selectedBlockId, blocks, onDeleteBlock, onDuplicateBlock, onUpdateBlock]);
 
   return (
-    <main className="flex-1 p-6 overflow-hidden">
+    <main className="flex-1 p-5 overflow-hidden">
       <div
         ref={workspaceRef}
-        className={`relative w-full h-full bg-white rounded-xl border-2 border-dashed transition-colors overflow-hidden ${
+        className={`relative w-full h-full bg-white rounded-2xl shadow-sm transition-all duration-200 overflow-hidden ${
           isDragOver 
-            ? 'border-blue-400 bg-blue-50' 
-            : 'border-gray-300'
+            ? 'ring-2 ring-[#0071e3] ring-offset-2 bg-[#f5f5f7]' 
+            : 'ring-1 ring-black/[0.04]'
         }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={handleWorkspaceClick}
       >
+        {/* Grid pattern background */}
+        <div 
+          className="absolute inset-0 opacity-[0.4] pointer-events-none"
+          style={{
+            backgroundImage: `radial-gradient(circle, #d2d2d7 1px, transparent 1px)`,
+            backgroundSize: '24px 24px'
+          }}
+        />
+
         {blocks.length === 0 && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 pointer-events-none">
-            <div className="text-6xl mb-4">🎨</div>
-            <p className="text-lg font-medium">Drag components here</p>
-            <p className="text-sm">or double-click a component in the sidebar</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <div className="w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-[#0071e3]/10 to-[#40c8e0]/10 flex items-center justify-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0071e3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <path d="M14 17.5h7M17.5 14v7" />
+              </svg>
+            </div>
+            <p className="text-[15px] font-medium text-[#1d1d1f]">Start building</p>
+            <p className="text-[13px] text-[#86868b] mt-1">Drag components from the sidebar</p>
           </div>
         )}
 
