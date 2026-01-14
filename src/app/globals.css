@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sidebar-width: 280px;
+  --header-height: 60px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Workspace component styles */
+.workspace-component {
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.workspace-component:hover {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.workspace-component.selected {
+  box-shadow: 0 0 0 2px rgb(59, 130, 246);
+}
+
+.workspace-component.dragging {
+  opacity: 0.8;
+  z-index: 1000;
+}
+
+/* Resize handles */
+.resize-handle {
+  position: absolute;
+  background: #3b82f6;
+  border: 1px solid white;
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.workspace-component:hover .resize-handle,
+.workspace-component.selected .resize-handle {
+  opacity: 1;
+}
+
+.resize-handle.nw { top: -4px; left: -4px; width: 8px; height: 8px; cursor: nw-resize; }
+.resize-handle.ne { top: -4px; right: -4px; width: 8px; height: 8px; cursor: ne-resize; }
+.resize-handle.sw { bottom: -4px; left: -4px; width: 8px; height: 8px; cursor: sw-resize; }
+.resize-handle.se { bottom: -4px; right: -4px; width: 8px; height: 8px; cursor: se-resize; }
+.resize-handle.n { top: -4px; left: 50%; transform: translateX(-50%); width: 20px; height: 8px; cursor: n-resize; }
+.resize-handle.s { bottom: -4px; left: 50%; transform: translateX(-50%); width: 20px; height: 8px; cursor: s-resize; }
+.resize-handle.w { left: -4px; top: 50%; transform: translateY(-50%); width: 8px; height: 20px; cursor: w-resize; }
+.resize-handle.e { right: -4px; top: 50%; transform: translateY(-50%); width: 8px; height: 20px; cursor: e-resize; }
+
+/* Component preview iframe */
+.component-preview-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+  background: white;
+}
+
+.workspace-component.selected .component-preview-frame {
+  pointer-events: auto;
+}
