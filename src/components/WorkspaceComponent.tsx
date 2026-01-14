@@ -190,6 +190,21 @@ export default function WorkspaceComponent({
     }
   }, [showContextMenu]);
 
+  // Handle keyboard delete when selected
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isSelected && (e.key === 'Delete' || e.key === 'Backspace')) {
+        // Don't delete if user is typing in an input
+        if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+        e.preventDefault();
+        onDelete();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isSelected, onDelete]);
+
   return (
     <>
       <div
@@ -238,6 +253,29 @@ export default function WorkspaceComponent({
           </div>
         )}
       </div>
+
+      {/* Delete button - floats outside the block, appears when selected */}
+      {isSelected && !isDragging && !isResizing && (
+        <button
+          className="absolute w-7 h-7 bg-[#ff3b30] hover:bg-[#ff453a] rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110"
+          style={{
+            left: block.x + block.width - 6,
+            top: block.y - 8,
+            zIndex: block.zIndex + 1000,
+          }}
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={(e) => { 
+            e.stopPropagation(); 
+            e.preventDefault();
+            onDelete(); 
+          }}
+          title="Delete component"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      )}
 
       {/* Global drag overlay to capture mouse during drag/resize */}
       {(isDragging || isResizing) && (
