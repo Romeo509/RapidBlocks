@@ -74,6 +74,7 @@ export default function WorkspaceComponent({
     if ((e.target as HTMLElement).classList.contains('resize-handle')) return;
     
     e.preventDefault();
+    e.stopPropagation();
     onSelect();
     setIsDragging(true);
 
@@ -103,7 +104,16 @@ export default function WorkspaceComponent({
       setIsDragging(false);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      // Re-enable pointer events on all iframes
+      document.querySelectorAll('iframe').forEach(iframe => {
+        iframe.style.pointerEvents = '';
+      });
     };
+
+    // Disable pointer events on all iframes to prevent them from capturing mouse events
+    document.querySelectorAll('iframe').forEach(iframe => {
+      iframe.style.pointerEvents = 'none';
+    });
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
@@ -166,7 +176,16 @@ export default function WorkspaceComponent({
       setShowSizeIndicator(false);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      // Re-enable pointer events on all iframes
+      document.querySelectorAll('iframe').forEach(iframe => {
+        iframe.style.pointerEvents = '';
+      });
     };
+
+    // Disable pointer events on all iframes during resize
+    document.querySelectorAll('iframe').forEach(iframe => {
+      iframe.style.pointerEvents = 'none';
+    });
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
